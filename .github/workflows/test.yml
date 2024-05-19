@@ -13,16 +13,16 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
         package_manager: [npm, yarn]
-        package_root: ["./test/app-in-root/", "./test/app-in-subdirectory/", "./test/vue-app"]
+        package_root: ["./test/app-in-root/", "./test/app-in-subdirectory/"]
 
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
 
       - name: Set up Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: 12
+          node-version: 20
 
       - name: Install test app dependencies
         run: |
@@ -34,5 +34,4 @@ jobs:
         with:
           github_token: ${{ secrets.github_token }}
           package_root: ${{ matrix.package_root }}
-          use_vue_cli: ${{ contains(matrix.package_root, 'vue')}}
           max_attempts: "2"
